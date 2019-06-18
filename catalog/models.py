@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse # Used to generate URLs by reversing the URL patterns
 import uuid # Required for unique book instances
+from django.contrib import admin
 
 # Create your models here.
 
@@ -97,3 +98,43 @@ class Language(models.Model):
     def __str__(self):
         """String for representing the Model object (in Admin site etc.)"""
         return self.name
+
+
+# Define the admin class
+class AuthorAdmin(admin.ModelAdmin):
+    list_display = ('last_name', 'first_name', 'date_of_birth', 'date_of_death')
+    fields = ['first_name', 'last_name', ('date_of_birth', 'date_of_death')]
+
+
+# Register the Admin classes for Book using the decorator
+class BooksInstanceInline(admin.TabularInline):
+    model = BookInstance
+
+
+# @admin.register(Book)
+class BookAdmin(admin.ModelAdmin):
+    list_display = ('title', 'author', 'display_genre')
+    inlines = [BooksInstanceInline]
+
+    def display_genre(self):
+        """Create a string for the Genre. This is required to display genre in Admin."""
+        return ', '.join(genre.name for genre in self.genre.all()[:3])
+
+        display_genre.short_description = 'Genre'
+
+
+# Register the Admin classes for BookInstance using the decorator
+# @admin.register(BookInstance) 
+class BookInstanceAdmin(admin.ModelAdmin):
+    list_filter = ('status', 'due_back')
+    
+    fieldsets = (
+        (None, {
+            'fields': ('book', 'imprint', 'id')
+        }),
+        ('Availability', {
+            'fields': ('status', 'due_back')
+        }),
+    )
+
+

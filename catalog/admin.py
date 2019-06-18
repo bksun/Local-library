@@ -1,11 +1,12 @@
+from catalog.models import Author, Genre, Book, BookInstance, Language, AuthorAdmin, BookAdmin, BookAdmin,BookInstanceAdmin
 from django.contrib import admin
 
 # Register your models here.
 
-from catalog.models import Author, Genre, Book, BookInstance, Language
 
-admin.site.register(Book)
-admin.site.register(Author)
+# Register the admin class with the associated model
+admin.site.register(Book, BookAdmin)
+admin.site.register(Author, AuthorAdmin)
+admin.site.register(BookInstance, BookInstanceAdmin)
 admin.site.register(Genre)
-admin.site.register(BookInstance)
 admin.site.register(Language)
