@@ -8,12 +8,14 @@ from catalog.models import Book, Author, BookInstance, Genre
 
 
 class BookDetailView(generic.DetailView):
+    """Generic class-based detail view for a book."""
     model = Book
 
     
 class BookListView(generic.ListView):
+    """Generic class-based detail view for a book."""
     model = Book
-    
+
 
 def index(request):
     """View function for home page of site."""
