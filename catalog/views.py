@@ -1,8 +1,19 @@
+from django.shortcuts import get_object_or_404
 from django.shortcuts import render
+from django.views import generic
 
 # Create your views here.
 
 from catalog.models import Book, Author, BookInstance, Genre
+
+
+class BookDetailView(generic.DetailView):
+    model = Book
+
+    
+class BookListView(generic.ListView):
+    model = Book
+    
 
 def index(request):
     """View function for home page of site."""
@@ -14,7 +25,7 @@ def index(request):
     # Available books (status = 'a')
     num_instances_available = BookInstance.objects.filter(status__exact='a').count()
     
-    # The 'all()' is implied by default.    
+    # The 'all()' is implied by default.
     num_authors = Author.objects.count()
     
     context = {
