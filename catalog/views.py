@@ -18,6 +18,12 @@ class BookListView(generic.ListView):
     paginate_by = 2
 
 
+class AuthorListView(generic.ListView):
+    """Generic class-based detail view for a book."""
+    model = Author
+    paginate_by = 2
+
+
 def index(request):
     """View function for home page of site."""
 
