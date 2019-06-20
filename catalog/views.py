@@ -11,7 +11,7 @@ class BookDetailView(generic.DetailView):
     """Generic class-based detail view for a book."""
     model = Book
 
-    
+
 class BookListView(generic.ListView):
     """Generic class-based detail view for a book."""
     model = Book
@@ -22,6 +22,11 @@ class AuthorListView(generic.ListView):
     """Generic class-based detail view for a book."""
     model = Author
     paginate_by = 2
+
+
+class AuthorDetailView(generic.DetailView):
+    """Generic class-based detail view for a book."""
+    model = Author
 
 
 def index(request):
